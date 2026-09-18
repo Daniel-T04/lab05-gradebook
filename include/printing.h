@@ -3,6 +3,7 @@
 #define PRINTING_H
 
 #include <string>
+#include "student.h"
 
 constexpr int name_width{14};
 
@@ -29,7 +30,7 @@ void print_header(const int num_students, const int num_assignments);
  * @param[in] num_students    Number of students in scores grid
  * @param[in] num_assignments Number of assignments in scores grid
  */
-void print_student_row(const std::string& name, const double* const* scores, int student_index, const int num_students, const int num_assignments);
+void print_student_row(const Student& student);
 
 /**
  * @brief Prints a bar chart of how many students earned each letter grade.
@@ -41,7 +42,7 @@ void print_student_row(const std::string& name, const double* const* scores, int
  * @param[in] num_students    Number of students in scores grid
  * @param[in] num_assignments Number of assignments in scores grid
  */
-void print_histogram(const double* const* scores, const int num_students, const int num_assignments);
+void print_histogram(const Student* roster, int roster_count);
 
 /**
  * @brief Prints the mean score for each assignment.
@@ -55,7 +56,7 @@ void print_histogram(const double* const* scores, const int num_students, const 
  * @param[in] num_students    Number of students in scores grid
  * @param[in] num_assignments Number of assignments in scores grid
  */
-void print_assignment_summary(const double* const* scores, const int num_students, const int num_assignments);
+void print_assignment_summary(const Student* roster, int roster_count);
 
 /**
  * @brief Prints each student's initials beside their full name.
@@ -70,6 +71,6 @@ void print_assignment_summary(const double* const* scores, const int num_student
  * @param[in] num_students    Number of students in scores grid
  * @param[in] num_assignments Number of assignments in scores grid
  */
-void print_roster(const std::string* names, int name_count);
+void print_roster(const Student* roster, int roster_count);
 
 #endif

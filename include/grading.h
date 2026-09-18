@@ -1,6 +1,7 @@
 // include/grading.h
 #ifndef GRADING_H
 #define GRADING_H
+#include "student.h"
 
 /**
  * @brief Calculates one student's mean score across all assignments.
@@ -14,10 +15,7 @@
  * @param[in] num_assignments Number of assignments in the grid
  * @return The mean of that student's assignment scores.
  */
-[[nodiscard]] double student_average(const double* const* scores,
-                                    const int student_index,
-                                    const int num_assignments);
-
+[[nodiscard]] double student_average(const Student& student);
 /**
  * @brief Calculates the mean score on one assignment across all students.
  *
@@ -28,8 +26,8 @@
  * @param[in] assignment_index  Column of the assignment to average.
  * @return The mean score earned on that assignment.
  */
-[[nodiscard]] double assignment_average(const double* const* scores,
-                                       int assignment_index, const int num_students, const int num_assignments);
+[[nodiscard]] double assignment_average(const Student* roster, int 
+roster_count, int assignment_index);
 
 /**
  * @brief Calculates the mean of every score in the grid.
@@ -39,7 +37,8 @@
  * @param[in] scores  The grade grid.
  * @return The mean of all num_students * num_assignments scores.
  */
-[[nodiscard]] double class_average(const double* const* scores, const int num_students, const int num_assignments);
+[[nodiscard]] double class_average(const Student* roster, 
+int roster_count);
 
 /**
  * @brief Finds one student's lowest and highest assignment scores.
@@ -56,7 +55,8 @@
  * @param[out] lowest           Receives the minimum score.
  * @param[out] highest          Receives the maximum score.
  */
-void find_extremes(const double* const* scores, int student_index, const int num_students, const int num_assignments, double& lowest, double& highest);
+void find_extremes(const Student& student, double& lowest, 
+double& highest);
 
 /**
  * @brief Counts how many students earned a given letter grade.
@@ -67,10 +67,11 @@ void find_extremes(const double* const* scores, int student_index, const int num
  * @param[in] scores  The grade grid.
  * @param[in] target  The letter grade to count.
  * @param[in] num_students     Number of students in the scores grid
- * @param[in] num_assignments  Number of assignments in the scores grid
+ * @param[in] num_assignments  Number of assignments in the scores gri
  * @return The number of students whose average earns that letter.
  */
-[[nodiscard]] int count_grade(const double* const* scores, char target, const int num_students, const int num_assignments);
+[[nodiscard]] int count_grade(const Student* roster, int roster_count, 
+char target);
 
 /**
  * @brief Reports whether a student earned a perfect score on any assignment.
@@ -84,8 +85,7 @@ void find_extremes(const double* const* scores, int student_index, const int num
  * @param[in] num_assignments  Number of assignments in the scores grid
  * @return true if any of that student's scores is 100 or above.
  */
-[[nodiscard]] bool has_perfect_score(const double* const* scores, int student_index, const int num_students, const int num_assignments);
-
+[[nodiscard]] bool has_perfect_score(const Student& student);
 /**
  * @brief Reports whether a student is academically at risk.
  *
@@ -101,6 +101,6 @@ void find_extremes(const double* const* scores, int student_index, const int num
  * @param[in] num_assignments  Number of assignments in the scores grid
  * @return true if either at-risk condition holds.
  */
-[[nodiscard]] bool is_at_risk(const double* const* scores, int student_index, const int num_students, const int num_assignments);
+[[nodiscard]] bool is_at_risk(const Student& student);
 
 #endif
